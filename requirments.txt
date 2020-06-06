@@ -1,0 +1,4 @@
+httpcap>=0.7.9
+netifaces>=0.10.9
+scapy>=2.4.3
+termcolor>=1.1.0
