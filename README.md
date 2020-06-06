@@ -12,6 +12,16 @@ Espionage is network packet sniffer that intercepts large amounts data being pas
 3: ```sudo python3 -m pip install -r requirments.txt```<br/>
 4: ```sudo python3 espionage.py --help```<br/>
 
+## Usage
+1. ```sudo python3 espionage.py --normal --iface wlan0 -f capture_output.pcap```<br/>
+Command 1 will execute a clean packet sniff and save the output to the pcap file provided. Replace ``wlan0`` with whatever your network interface is.<br/>
+2. ```sudo python3 espionage.py --verbose --iface wlan0 -f capture_output.pcap```<br/>
+Command 2 will execute a more detailed (verbose) packet sniff and save the output to the pcap file provided.<br/>
+3. ```sudo python3 espionage.py --normal --iface wlan0```<br/>
+Command 3 will still execute a clean packet sniff however, it will not save the data to a pcap file. Saving the sniff is recommended. <br/>
+4. ```sudo python3 espionage.py --verbose --httpraw --iface wlan0```<br/>
+Command 4 wille execute a verbose packet sniff and will also show raw http/tcp packet data in bytes. <br/>
+
 ## Menu
 ```
 usage: espionage.py [-h] [--version] [-n] [-v] [-hr] [-s] [-f FILENAME] [-i IFACE]
