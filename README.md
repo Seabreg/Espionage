@@ -43,6 +43,9 @@ optional arguments:
   -i IFACE, --iface IFACE
                         specify network interface (ie. wlan0, eth0, wlan1, etc.)
 ```
+<p align="center">
+  <img src="https://github.com/josh0xA/Espionage/blob/master/imgs/example_verbose.png?raw=true">
+</p>
 
 ## Discord Server
 https://discord.gg/jtZeWek
