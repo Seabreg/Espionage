@@ -1,1 +1,1 @@
-# Espionage - A Network Packet and Traffic Interceptor For Linux.
+# Espionage - A Network Traffic Interceptor For Linux
