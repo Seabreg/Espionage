@@ -103,7 +103,7 @@ def espionage_main():
                               "--iface",
                                help="specify network interface (ie. wlan0, eth0, wlan1, etc.)",
                                type=str,
-                               required=False)
+                               required=True)
 
     args = parser.parse_args()
 
