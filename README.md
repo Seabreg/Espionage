@@ -21,6 +21,7 @@ Command 2 will execute a more detailed (verbose) packet sniff and save the outpu
 Command 3 will still execute a clean packet sniff however, it will not save the data to a pcap file. Saving the sniff is recommended. <br/>
 4. ```sudo python3 espionage.py --verbose --httpraw --iface wlan0```<br/>
 Command 4 will execute a verbose packet sniff and will also show raw http/tcp packet data in bytes. <br/>
+* Press Ctrl+C in-order to stop the packet interception and write the output to file. <br/>
 
 ## Menu
 ```
