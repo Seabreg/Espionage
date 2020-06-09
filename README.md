@@ -12,7 +12,9 @@ Espionage is a network packet sniffer that intercepts large amounts data being p
 3: ```sudo python3 -m pip install -r requirments.txt```<br/>
 4: ```sudo python3 espionage.py --help```<br/>
 
-https://asciinema.org/a/suAKny1Hh7Ai7L6jedrDoJqbZ
+<p align="center">
+  <a href="https://asciinema.org/a/suAKny1Hh7Ai7L6jedrDoJqbZ"></a>
+</p>
 
 ## Usage
 1. ```sudo python3 espionage.py --normal --iface wlan0 -f capture_output.pcap```<br/>
