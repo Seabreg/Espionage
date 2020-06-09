@@ -7,10 +7,9 @@
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/josh0xA/Espionage/graphs/commit-activity)
 [![GitHub pull-requests](https://img.shields.io/github/issues-pr/josh0xA/Espionage)](https://GitHub.com/josh0xA/Espionage/pull/)
 [![GitHub issues](https://img.shields.io/github/issues/josh0xA/Espionage)](https://GitHub.com/josh0xA/Espionage/issues/)
+[![Only 32 Kb](https://badge-size.herokuapp.com/josh0xA/Espionage/master/)](https://github.com/josh0xA/Espionage/blob/master/)
+[![GitHub version](https://badge.fury.io/gh/josh0xA%Espionage](https://github.com/josh0xA/Espionage)
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
-
-
-
 
 ## About Espionage
 Espionage is a network packet sniffer that intercepts large amounts data being passed through an interface. The tool allows users to to run normal and verbose traffic analysis that shows a live feed of traffic, revealing packet direction, protocols, flags, etc. Espionage can also spoof ARP so, all data sent by the target gets redirected through the attacker (MiTM). Espionage supports IPv4, TCP/UDP, ICMP, and HTTP. Espionage was written in Python 3.8 but it also supports version 3.6. This is the first version of the tool so please contact the developer if you want to help contribute and add more to Espionage.
