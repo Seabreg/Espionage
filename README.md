@@ -25,7 +25,7 @@ Command 4 will execute a verbose packet sniff and will also show raw http/tcp pa
 
 ## Menu
 ```
-usage: espionage.py [-h] [--version] [-n] [-v] [-hr] [-s] [-f FILENAME] [-i IFACE]
+usage: espionage.py [-h] [--version] [-n] [-v] [-hr] [-f FILENAME] -i IFACE [-t TARGET]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -33,7 +33,6 @@ optional arguments:
   -n, --normal          executes a cleaner interception, less sophisticated.
   -v, --verbose         (recommended) executes a more in-depth packet interception/sniff.
   -hr, --httpraw        displays raw packet data (byte order) recieved or sent on port 80.
-  -s, --scapy           uses scapy to intercept data sent to urls.
 
 (Recommended) arguments for data output (.pcap):
   -f FILENAME, --filename FILENAME
@@ -42,6 +41,10 @@ optional arguments:
 (Required) arguments required for execution:
   -i IFACE, --iface IFACE
                         specify network interface (ie. wlan0, eth0, wlan1, etc.)
+
+(ARP Spoofing) required arguments in-order to use the ARP Spoofing utility:
+  -t TARGET, --target TARGET
+                        specify the target IP address to spoof.
 ```
 <p align="center">
   <img src="https://github.com/josh0xA/Espionage/blob/master/imgs/example_verbose.png?raw=true">
