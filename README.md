@@ -3,23 +3,7 @@
   <img src="https://github.com/josh0xA/Espionage/blob/master/imgs/espionage_logo.png?raw=true">
 </p>
 
-div.a {
-  text-indent: 50px;
-}
 
-div.b {
-  text-indent: -2em;
-}
-
-div.c {
-  text-indent: 30%;
-}
-
-<br/>[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/josh0xA/Espionage/graphs/commit-activity)
-[![GitHub pull-requests](https://img.shields.io/github/issues-pr/josh0xA/Espionage)](https://GitHub.com/josh0xA/Espionage/pull/)
-[![GitHub issues](https://img.shields.io/github/issues/josh0xA/Espionage)](https://GitHub.com/josh0xA/Espionage/issues/)
-[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 
 ## About Espionage
 Espionage is a network packet sniffer that intercepts large amounts data being passed through an interface. The tool allows users to to run normal and verbose traffic analysis that shows a live feed of traffic, revealing packet direction, protocols, flags, etc. Espionage can also spoof ARP so, all data sent by the target gets redirected through the attacker (MiTM). Espionage supports IPv4, TCP/UDP, ICMP, and HTTP. Espionage was written in Python 3.8 but it also supports version 3.6. This is the first version of the tool so please contact the developer if you want to help contribute and add more to Espionage.
@@ -77,3 +61,9 @@ The developer of this program, Josh Schiavone, written the following code for ed
 ### License
 MIT License<br/>
 Copyright (c) 2020 Josh Schiavone
+
+<br/>[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/josh0xA/Espionage/graphs/commit-activity)
+[![GitHub pull-requests](https://img.shields.io/github/issues-pr/josh0xA/Espionage)](https://GitHub.com/josh0xA/Espionage/pull/)
+[![GitHub issues](https://img.shields.io/github/issues/josh0xA/Espionage)](https://GitHub.com/josh0xA/Espionage/issues/)
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
