@@ -1,15 +1,12 @@
 # Espionage - A Network Traffic Interceptor For Linux
 <p align="center">
   <img src="https://github.com/josh0xA/Espionage/blob/master/imgs/espionage_logo.png?raw=true">
+  [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
+  [![GitHub issues](https://img.shields.io/github/issues/josh0xA/Espionage)](https://GitHub.com/josh0xA/Espionage/issues/)
+  [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 </p>
 
-  <a target="_blank" href="https://opensource.org/licenses/MIT" title="Python version"><img src="https://img.shields.io/badge/License-MIT-yellow.svg)"></a>
-  <a target="_blank" href="https://GitHub.com/josh0xA/Espionage/issues/" title="Python version"><img src="https://img.shields.io/github/issues/josh0xA/Espionage)"></a>
-  <a target="_blank" href="https://www.python.org/" title="Python version"><img src="https://img.shields.io/badge/Made%20with-Python-1f425f.svg)"></a>
 
-[![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
-[![GitHub issues](https://img.shields.io/github/issues/josh0xA/Espionage)](https://GitHub.com/josh0xA/Espionage/issues/)
-[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 
 ## About Espionage
 Espionage is a network packet sniffer that intercepts large amounts data being passed through an interface. The tool allows users to to run normal and verbose traffic analysis that shows a live feed of traffic, revealing packet direction, protocols, flags, etc. Espionage can also spoof ARP so, all data sent by the target gets redirected through the attacker (MiTM). Espionage supports IPv4, TCP/UDP, ICMP, and HTTP. Espionage was written in Python 3.8 but it also supports version 3.6. This is the first version of the tool so please contact the developer if you want to help contribute and add more to Espionage.
