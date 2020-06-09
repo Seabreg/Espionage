@@ -35,9 +35,6 @@ import subprocess
 
 from termcolor import cprint, colored
 
-from scapy.all import *
-from scapy.layers.http import HTTPRequest 
-
 from ext.banner import *
 
 from core.config import *
