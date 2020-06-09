@@ -12,10 +12,6 @@ Espionage is a network packet sniffer that intercepts large amounts data being p
 3: ```sudo python3 -m pip install -r requirments.txt```<br/>
 4: ```sudo python3 espionage.py --help```<br/>
 
-<p align="center">
-  <a href="https://asciinema.org/a/suAKny1Hh7Ai7L6jedrDoJqbZ"></a>
-</p>
-
 ## Usage
 1. ```sudo python3 espionage.py --normal --iface wlan0 -f capture_output.pcap```<br/>
 Command 1 will execute a clean packet sniff and save the output to the pcap file provided. Replace ``wlan0`` with whatever your network interface is.<br/>
@@ -52,9 +48,7 @@ optional arguments:
   -t TARGET, --target TARGET
                         specify the target IP address to spoof.
 ```
-<p align="center">
-  <img src="https://github.com/josh0xA/Espionage/blob/master/imgs/example_verbose.png?raw=true">
-</p>
+[![asciicast](https://asciinema.org/a/suAKny1Hh7Ai7L6jedrDoJqbZ.svg)](https://asciinema.org/a/suAKny1Hh7Ai7L6jedrDoJqbZ)
 
 ## Discord Server
 https://discord.gg/jtZeWek
