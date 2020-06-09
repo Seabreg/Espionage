@@ -1,6 +1,6 @@
 # Espionage - A Network Traffic Interceptor For Linux
 <p align="center">
-  <img src="https://github.com/josh0xA/Espionage/blob/master/imgs/espionage_logo.png?raw=true">
+  <img src="https://github.com/josh0xA/Espionage/blob/master/imgs/espionage_logo.png?raw=true"></img>
   [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
   [![GitHub issues](https://img.shields.io/github/issues/josh0xA/Espionage)](https://GitHub.com/josh0xA/Espionage/issues/)
   [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
