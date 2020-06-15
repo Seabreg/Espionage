@@ -7,7 +7,7 @@
   <br>
   <b>Featured In</b>
   <br>
-  <img src="https://i.imgur.com/IPiAUZi.pn">
+  <img src="https://i.imgur.com/IPiAUZi.png">
 </p>
 
 ## About Espionage
