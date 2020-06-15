@@ -7,7 +7,7 @@
   <br>
   <b>Featured In</b>
   <br>
-  <a href="https://blackarch.org/sniffer.html"><img src="https://i.imgur.com/IPiAUZi.png"></a>
+  <a href="https://blackarch.org/sniffer.html"><img src="https://i.imgur.com/IPiAUZi.png" width="100" height="100"></a>
 </p>
 
 ## About Espionage
