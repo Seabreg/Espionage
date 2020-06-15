@@ -7,7 +7,7 @@
   <br>
   <b>Featured In</b>
   <br>
-  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSFwBfIaeiIODEUy4clHCUpNOVVzQOzMDViR5xvvAbXhXpfH8rv&usqp=CAU">
+  <img src="https://i.imgur.com/IPiAUZi.pn">
 </p>
 
 ## About Espionage
