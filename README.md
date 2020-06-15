@@ -7,7 +7,7 @@
   <br>
   <b>Featured In</b>
   <br>
-  <img src="https://i.imgur.com/IPiAUZi.png">
+  <img src="https://www.kali.org/docs/images/logo-blue.png">
 </p>
 
 ## About Espionage
