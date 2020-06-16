@@ -24,12 +24,14 @@ W = '\033[0m'  # white (normal)
 R = '\033[31m'  # red
 G = '\033[32m'  # green
 O = '\033[33m'  # orange
-B = '\033[34m'  # blue
+B = '\033[34m'  # blueHTTP
 P = '\033[35m'  # purple
-C = '\033[36m'  # cyan
+C = '\033[36m'  # cyanHTTP
 GR = '\033[37m'  # gray
 BOLD = '\033[1m'
 END = '\033[0m'
+
+global source_ip_address, destination_ip_address, snf_data, http_pckts
 
 class Config:
     # Program return value handlers
@@ -38,6 +40,7 @@ class Config:
     ESPIONAGE_PROCESS_ACTIVE = False
 
     # Interface Handlers
+    ESPI_NET_INTERFACE_ACTIVE = False
     ESPI_WLAN0_NET_INTERFACE = 'wlan0'
     ESPI_WLAN1_NET_INTERFACE = 'wlan1'
     ESPI_ETH0_NET_INTERFACE = 'eth0'
@@ -58,6 +61,7 @@ class Config:
 
     # Port Handlers
     ESPI_HTTP_DEFAULT_PORT = 80
+    ESPI_TCP_HTTPS_DEFAULT_PORT = 443
     
     # OS Handlers
     ESPI_OSYSTEM_UNIX_LINUX = False
@@ -89,7 +93,6 @@ class Config:
 
 
 class Espionage(object):
-
     def print_espionage_message(self, msg, color=True):
         espionage = '\n[espionage]>'
         icon = '[*] '
@@ -165,8 +168,16 @@ class Interface(object):
         self.netinterface = netinterface
 
     def is_interface_up(self):
-        iface_addr = netifaces.ifaddresses(self.netinterface)
-        return netifaces.AF_INET in iface_addr
+        try:
+            iface_addr = netifaces.ifaddresses(self.netinterface)
+            if netifaces.AF_INET in iface_addr:
+                return True
+        except ValueError:
+            return False
+
+class InterfaceHandle(object):
+    def get_system_interfaces(self):
+        return netifaces.interfaces()
             
 class PCAP(object):
     def __init__(self, fname):

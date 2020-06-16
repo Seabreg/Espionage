@@ -14,11 +14,14 @@ import textwrap
 
 import httpcap
 
-'''
-from scapy.all import *
-from scapy.layers.http import HTTPRequest
-'''
 from core.config import *
+
+class HTTP(object):
+    def __init__(self, raw_data):
+        try:
+            self.data = raw_data.decode('utf-8')
+        except:
+            self.data = raw_data
 
 class Packet(object):
 
@@ -64,7 +67,7 @@ class Packet(object):
 
         except:
             print(espionage_textwrapper('\t\t\t', packet_data))
-
+    
     def process_http_packet(self, http_packet):
         if http_packet.haslayer(HTTPRequest):
             packet_url = http_packet[HTTPRequest].Host.decode() + http_packet(HTTPRequest).Path.decode()
@@ -79,8 +82,8 @@ class Packet(object):
         pk = Packet()
 
         if Interface(interface).is_interface_up():
-            sniff(filter="port 80", prn=pk.process_http_packet, iface=interface, store=False)
-        else: sniff(filter="port 80", prn=pk.process_http_packet, store=False)
+            sniff(filter="port 443", prn=pk.process_http_packet, iface=interface, store=True)
+        else: sniff(filter="port 443", prn=pk.process_http_packet, store=True)
 
    
 

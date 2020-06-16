@@ -39,7 +39,7 @@ class Segment(object):
         cfg = Config()
         pk = Packet()
 
-        udp_port_destination, udp_port_source, udp_size = pk.unpack_packet(cfg.ESPI_UDP_SEGMENT_FORMAT, segment_data, 8)
+        udp_port_source, udp_port_destination, udp_size = pk.unpack_packet(cfg.ESPI_UDP_SEGMENT_FORMAT, segment_data, 8)
         return udp_port_source, udp_port_destination, udp_size, segment_data[8:]
         
 

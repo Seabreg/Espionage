@@ -36,6 +36,7 @@ import subprocess
 from termcolor import cprint, colored
 
 from ext.banner import *
+from core.espionage_http.esphttpsniff import *
 
 from core.config import *
 from core.packet import Packet
@@ -46,10 +47,12 @@ from arp.cachepoison import *
 from arp.iproute import *
 
 
+
 global pcap_file_name # "Global variables are bad!" - NSA's programming tips
 
-__version__ = '1.1'
-
+__version__ = '1.2'
+__author__ = 'Josh Schiavone'
+__license__ = 'MIT'
 
 def espionage_main():
     esp = Espionage()
@@ -83,10 +86,20 @@ def espionage_main():
                         help="(recommended) executes a more in-depth packet interception/sniff.",
                         action="store_true")
 
+    parser.add_argument("-o",
+                        "--onlyhttp",
+                        help="sniffs only tcp/http data, returns urls visited.",
+                        action="store_true")
+
     parser.add_argument("-hr",
                         "--httpraw",
                         help="displays raw packet data (byte order) recieved or sent on port 80.",
                         action="store_true")  
+
+    parser.add_argument("-ohs",
+                        "--onlyhttpsecure",
+                        help="sniffs only https data, (port 443).",
+                        action="store_true")
 
     file_arg_section = parser.add_argument_group('(Recommended) arguments for data output (.pcap)')
     file_arg_section.add_argument("-f",
@@ -103,9 +116,7 @@ def espionage_main():
 
     spoofer_section = parser.add_argument_group('(ARP Spoofing) required arguments in-order to use the ARP Spoofing utility')
     spoofer_section.add_argument("-t",
-                        "--target",
-                        help="specify the target IP address to spoof.",
-                        type=str,
+                        "--target",               
                         required=False)
 
     args = parser.parse_args()
@@ -114,8 +125,10 @@ def espionage_main():
 
     try:
         __socket__ = socket.socket( socket.AF_PACKET, socket.SOCK_RAW, socket.ntohs(0x0003))
+        if Interface(args.iface).is_interface_up():
+            __socket__.setsockopt(socket.SOL_SOCKET, 25, bytearray(str.encode(args.iface)))
+        else: pass
         cfg.ESPIONAGE_PROCESS_ACTIVE = True
-      #  __socket__.setsockopt(socket.SOL_SOCKET, 25, str("enp2s0" + '\0').encode('utf-8'))
 
     except PermissionError as pe:
         cprint("Must be ran as root.", 'red', attrs=['bold'])
@@ -182,6 +195,7 @@ def espionage_main():
                 print(BOLD + R + "\nExiting Espionage Interception.\n" + BOLD + G + "Packet capture saved to: {}".format(os.path.realpath(pcap_file_name)) + END)
             else: print(BOLD + R + "\nExiting Espionage Interception.\n" + BOLD + C + "Packet capture not written to file.\n" + END)
 
+
     elif args.verbose:
         try:
             while True:
@@ -219,7 +233,7 @@ def espionage_main():
                                 pk.handle_raw_http_packet(data)
                             else:
                                 esp.print_espionage_noprefix('\t\t' + "Raw TCP/Raw-no-http Packet Bytes: ")
-                                print(espionage_textwrapper('\t\t\t', data))
+                                print(espionage_textwrapper('\t\t\t', raw_data))
                         else: pass
 
                         if args.filename:
@@ -241,10 +255,54 @@ def espionage_main():
                             PCAP(pcap_file_name).write_to_pcap_file("\n\t\tSource Port: {}, Target Port: {}".format(segment_source_port, segment_destination_port))
                         else: pass 
 
+
         except KeyboardInterrupt:
             if args.filename:
                 print(BOLD + R + "\nExiting Espionage Interception.\n" + BOLD + G + "Packet capture saved to: {}".format(os.path.realpath(pcap_file_name)) + END)
             else: print(BOLD + R + "\nExiting Espionage Interception.\n" + BOLD + C + "Packet capture not written to file.\n" + END)
+
+    elif args.onlyhttp:
+        it = InterfaceHandle()
+        cfg = Config()
+        try:
+            for sysiface in it.get_system_interfaces():
+                if args.iface in sysiface:
+                    if Interface(sysiface).is_interface_up():
+                        pk = Packet()
+                        cprint("Interface: {} is active.".format(args.iface), 'green', attrs=['bold'])
+                        cfg.ESPI_NET_INTERFACE_ACTIVE = True
+                        break
+
+            if Interface(args.iface).is_interface_up() == False:
+                cprint("Interface: {} is not-active.".format(args.iface), 'red', attrs=['bold'])
+                cfg.ESPI_NET_INTERFACE_ACTIVE = False
+
+            if cfg.ESPI_NET_INTERFACE_ACTIVE: 
+                ESPHTTPHandle(sysiface, cfg.ESPI_HTTP_DEFAULT_PORT).sniff_basic_http()
+        except KeyboardInterrupt:
+            print(BOLD + R + "\n[!] Exiting Espionage HTTPS Interception.\n" + END)
+        
+    elif args.onlyhttpsecure:
+        it = InterfaceHandle()
+        cfg = Config()
+        try:
+            for sysiface in it.get_system_interfaces():
+                if args.iface in sysiface:
+                    if Interface(sysiface).is_interface_up():
+                        pk = Packet()
+                        cprint("Interface: {} is active.".format(args.iface), 'green', attrs=['bold'])
+                        cfg.ESPI_NET_INTERFACE_ACTIVE = True
+                        break
+
+            if Interface(args.iface).is_interface_up() == False:
+                cprint("Interface: {} is not-active.".format(args.iface), 'red', attrs=['bold'])
+                cfg.ESPI_NET_INTERFACE_ACTIVE = False
+
+            if cfg.ESPI_NET_INTERFACE_ACTIVE: 
+                ESPHTTPSecureHandle(sysiface, cfg.ESPI_TCP_HTTPS_DEFAULT_PORT).sniff_basic_https()
+
+        except KeyboardInterrupt:
+            print(BOLD + R + "\n[!] Exiting Espionage HTTPS Interception.\n" + END)
 
     elif args.target:
         Route(cfg.ESPI_UNIX_LINUX_IP_ROUTE_PATH).ip_route_switch_on()
@@ -259,8 +317,5 @@ def espionage_main():
             ARPHandle(args.target, default_gateway).restore_network()
             ARPHandle(default_gateway, args.target).restore_network()
 
-
-
-
 if __name__ == "__main__":
-    espionage_main()
+    espionage_main()                
