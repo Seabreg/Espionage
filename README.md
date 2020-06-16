@@ -63,7 +63,9 @@ optional arguments:
   -t TARGET, --target TARGET
 
 ```
-[![asciicast](https://asciinema.org/a/suAKny1Hh7Ai7L6jedrDoJqbZ.svg)](https://asciinema.org/a/suAKny1Hh7Ai7L6jedrDoJqbZ)
+<p align="center">
+  <img src="https://github.com/josh0xA/Espionage/blob/master/imgs/example_verbose2.png?raw=true">
+</p>
 
 ## Discord Server
 https://discord.gg/jtZeWek
