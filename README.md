@@ -30,7 +30,7 @@ Command 3 will still execute a clean packet sniff however, it will not save the 
 Command 4 will execute a verbose packet sniff and will also show raw http/tcp packet data in bytes. <br/>
 5. ```sudo python3 espionage.py --target <target-ip-address> --iface wlan0```<br/>
 Command 5 will ARP spoof the target ip address and all data being sent will be routed back to the attackers machine (you/localhost). <br/>
-6. ```sudo python3 espionage.py --iface wlan0 --onlyhttp```>br/>
+6. ```sudo python3 espionage.py --iface wlan0 --onlyhttp```<br/>
 Command 6 will only display sniffed packets on port 80 utilizing the HTTP protocol.<br/>
 7. ```sudo python3 espionage.py --iface wlan0 --onlyhttpsecure```<br/>
 Command 7 will only display sniffed packets on port 443 utilizing the HTTPS (secured) protocol.<br/><br/>
