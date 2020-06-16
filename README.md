@@ -29,19 +29,27 @@ Command 3 will still execute a clean packet sniff however, it will not save the 
 4. ```sudo python3 espionage.py --verbose --httpraw --iface wlan0```<br/>
 Command 4 will execute a verbose packet sniff and will also show raw http/tcp packet data in bytes. <br/>
 5. ```sudo python3 espionage.py --target <target-ip-address> --iface wlan0```<br/>
-Command 5 will ARP spoof the target ip address and all data being sent will be routed back to the attackers machine (you/localhost). <br/><br/>
+Command 5 will ARP spoof the target ip address and all data being sent will be routed back to the attackers machine (you/localhost). <br/>
+6. ```sudo python3 espionage.py --iface wlan0 --onlyhttp```
+Command 6 will only display sniffed packets on port 80 utilizing the HTTP protocol.<br/>
+7. ```sudo python3 espionage.py --iface wlan0 --onlyhttpsecure```
+Command 7 will only display sniffed packets on port 443 utilizing the HTTPS (secured) protocol.<br/><br/>
 * Press Ctrl+C in-order to stop the packet interception and write the output to file. <br/>
 
 ## Menu
 ```
-usage: espionage.py [-h] [--version] [-n] [-v] [-hr] [-f FILENAME] -i IFACE [-t TARGET]
+usage: espionage.py [-h] [--version] [-n] [-v] [-o] [-hr] [-ohs] [-f FILENAME] -i IFACE
+                    [-t TARGET]
 
 optional arguments:
   -h, --help            show this help message and exit
   --version             returns the packet sniffers version.
   -n, --normal          executes a cleaner interception, less sophisticated.
   -v, --verbose         (recommended) executes a more in-depth packet interception/sniff.
+  -o, --onlyhttp        sniffs only tcp/http data, returns urls visited.
   -hr, --httpraw        displays raw packet data (byte order) recieved or sent on port 80.
+  -ohs, --onlyhttpsecure
+                        sniffs only https data, (port 443).
 
 (Recommended) arguments for data output (.pcap):
   -f FILENAME, --filename FILENAME
@@ -53,7 +61,7 @@ optional arguments:
 
 (ARP Spoofing) required arguments in-order to use the ARP Spoofing utility:
   -t TARGET, --target TARGET
-                        specify the target IP address to spoof.
+
 ```
 [![asciicast](https://asciinema.org/a/suAKny1Hh7Ai7L6jedrDoJqbZ.svg)](https://asciinema.org/a/suAKny1Hh7Ai7L6jedrDoJqbZ)
 
