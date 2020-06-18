@@ -8,12 +8,14 @@ You should have received a copy of the MIT license with
 this file. If not, visit : https://opensource.org/licenses/MIT
 '''
 
+
 import struct
 import socket
 import textwrap
 
 import httpcap
-
+from scapy.all import *
+from scapy.layers.http import HTTPRequest
 from core.config import *
 
 class HTTP(object):
@@ -67,29 +69,24 @@ class Packet(object):
 
         except:
             print(espionage_textwrapper('\t\t\t', packet_data))
-    
-    def process_http_packet(self, http_packet):
-        if http_packet.haslayer(HTTPRequest):
-            packet_url = http_packet[HTTPRequest].Host.decode() + http_packet(HTTPRequest).Path.decode()
-            packet_ip_address = http_packet[IP].src
+
+def sniff_url_from_http_packet(interface, raw=False):
+    if Interface(interface).is_interface_up():
+        sniff(filter="port 80", prn=process_http_packet, iface=interface, store=False)
+    else: sniff(filter="port 80", prn=process_http_packet, store=False)
+
+def process_http_packet(httppacket):
+    esp = Espionage()
+    try:
+        if httppacket.haslayer(HTTPRequest):
+            url = httppacket[HTTPRequest].Host.decode()
+            url_sub_dir = httppacket[HTTPRequest].Path.decode()
+
+            packet_url = url + url_sub_dir
+
+            packet_ip_address = httppacket[IP].src
             # Fetch the HTTP request method (GET or POST)
-            http_method = http_packet[HTTPRequest].Method.decode()
-            print(f"[+] {packet_ip_address} Requested {packet_url} with {http_method}")
-
-    def sniff_http_packet(self, interface):
-        cfg = Config()
-        esp = Espionage()
-        pk = Packet()
-
-        if Interface(interface).is_interface_up():
-            sniff(filter="port 443", prn=pk.process_http_packet, iface=interface, store=True)
-        else: sniff(filter="port 443", prn=pk.process_http_packet, store=True)
-
-   
-
-
-
-
-
-    
-
+            http_method = httppacket[HTTPRequest].Method.decode()
+            esp.print_espionage_noprefix(f"[+] {packet_ip_address} <requested> {packet_url} with {http_method}", color=True)
+    except IndexError:
+        pass
