@@ -33,7 +33,9 @@ Command 5 will ARP spoof the target ip address and all data being sent will be r
 6. ```sudo python3 espionage.py --iface wlan0 --onlyhttp```<br/>
 Command 6 will only display sniffed packets on port 80 utilizing the HTTP protocol.<br/>
 7. ```sudo python3 espionage.py --iface wlan0 --onlyhttpsecure```<br/>
-Command 7 will only display sniffed packets on port 443 utilizing the HTTPS (secured) protocol.<br/><br/>
+Command 7 will only display sniffed packets on port 443 utilizing the HTTPS (secured) protocol.<br/>
+8. ```sudo python3 espionage.py --iface wlan0 --urlonly```<br/>
+Command 8 will only sniff and return sniffed urls visited by the victum. (works best with sslstrip).<br/><br/>
 * Press Ctrl+C in-order to stop the packet interception and write the output to file. <br/>
 
 ## Menu
