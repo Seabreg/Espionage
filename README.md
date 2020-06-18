@@ -38,7 +38,7 @@ Command 7 will only display sniffed packets on port 443 utilizing the HTTPS (sec
 
 ## Menu
 ```
-usage: espionage.py [-h] [--version] [-n] [-v] [-o] [-hr] [-ohs] [-f FILENAME] -i IFACE
+usage: espionage.py [-h] [--version] [-n] [-v] [-url] [-o] [-ohs] [-hr] [-f FILENAME] -i IFACE
                     [-t TARGET]
 
 optional arguments:
@@ -46,10 +46,11 @@ optional arguments:
   --version             returns the packet sniffers version.
   -n, --normal          executes a cleaner interception, less sophisticated.
   -v, --verbose         (recommended) executes a more in-depth packet interception/sniff.
+  -url, --urlonly       only sniffs visited urls using http/https.
   -o, --onlyhttp        sniffs only tcp/http data, returns urls visited.
-  -hr, --httpraw        displays raw packet data (byte order) recieved or sent on port 80.
   -ohs, --onlyhttpsecure
                         sniffs only https data, (port 443).
+  -hr, --httpraw        displays raw packet data (byte order) recieved or sent on port 80.
 
 (Recommended) arguments for data output (.pcap):
   -f FILENAME, --filename FILENAME
@@ -61,7 +62,6 @@ optional arguments:
 
 (ARP Spoofing) required arguments in-order to use the ARP Spoofing utility:
   -t TARGET, --target TARGET
-
 ```
 [![asciicast](https://asciinema.org/a/iwuTnHzhuqHPnkkThwiYF3vkm.svg)](https://asciinema.org/a/iwuTnHzhuqHPnkkThwiYF3vkm)
 
