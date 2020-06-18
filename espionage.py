@@ -74,7 +74,7 @@ def espionage_main():
 
     parser.add_argument("--version",
                         help="returns the packet sniffers version.",
-                        action="store_true")   
+                        action="store_true")
 
     parser.add_argument("-n",
                         "--normal",
@@ -86,20 +86,26 @@ def espionage_main():
                         help="(recommended) executes a more in-depth packet interception/sniff.",
                         action="store_true")
 
+    parser.add_argument("-url",
+                        "--urlonly",
+                        help="only sniffs visited urls using http/https.",
+                        action="store_true")
+
     parser.add_argument("-o",
                         "--onlyhttp",
                         help="sniffs only tcp/http data, returns urls visited.",
                         action="store_true")
 
-    parser.add_argument("-hr",
-                        "--httpraw",
-                        help="displays raw packet data (byte order) recieved or sent on port 80.",
-                        action="store_true")  
-
     parser.add_argument("-ohs",
                         "--onlyhttpsecure",
                         help="sniffs only https data, (port 443).",
                         action="store_true")
+
+    parser.add_argument("-hr",
+                        "--httpraw",
+                        help="displays raw packet data (byte order) recieved or sent on port 80.",
+                        action="store_true")
+
 
     file_arg_section = parser.add_argument_group('(Recommended) arguments for data output (.pcap)')
     file_arg_section.add_argument("-f",
@@ -116,7 +122,7 @@ def espionage_main():
 
     spoofer_section = parser.add_argument_group('(ARP Spoofing) required arguments in-order to use the ARP Spoofing utility')
     spoofer_section.add_argument("-t",
-                        "--target",               
+                        "--target",
                         required=False)
 
     args = parser.parse_args()
@@ -142,11 +148,11 @@ def espionage_main():
             while cfg.ESPIONAGE_PROCESS_ACTIVE:
                 raw_data, addr = __socket__.recvfrom(65536)
                 dest_mac, src_mac, eth_proto, data = nf.unpack_ether_frame(raw_data)
-                
+
                 print(BOLD + G + "[espionage]>" + W + BOLD + 'Ethernet Frame: ')
                 esp.print_espionage_notab('Destination: {}, Source: {}, Protocol: {}\n'.format(dest_mac, src_mac, eth_proto))
 
-                (packet_version, packet_header_length, packet_ttl, packet_protocol, packet_source, packet_destination, pkdata) = pk.handle_ipv4_packet(data)                    
+                (packet_version, packet_header_length, packet_ttl, packet_protocol, packet_source, packet_destination, pkdata) = pk.handle_ipv4_packet(data)
 
                 if eth_proto == 8:
                     opt.__write_ipv4_normal_output__(data)
@@ -157,7 +163,7 @@ def espionage_main():
                     else: pass
 
                     if packet_protocol == 1:
-                        (icmp_packet_type, icmp_packet_code, icmp_check_summation, icmp_packet_data) = pk.handle_icmp_packet(data)      
+                        (icmp_packet_type, icmp_packet_code, icmp_check_summation, icmp_packet_data) = pk.handle_icmp_packet(data)
                         opt.__write_icmp_normal_output__(data)
                         if args.filename:
                             PCAP(pcap_file_name).write_to_pcap_file("ICMP Contents {}".format(cfg.ESPI_ASCII_DOWN_ARROW))
@@ -165,7 +171,7 @@ def espionage_main():
                         else: pass
 
                     elif packet_protocol == 6:
-                        (segment_source_port, segment_destination_port, segment_sequence, segment_acknowledgment, __urg_flag__, __ack_flag__, 
+                        (segment_source_port, segment_destination_port, segment_sequence, segment_acknowledgment, __urg_flag__, __ack_flag__,
                         __psh_flag__, __rst_flag__, __syn_flag__, __fin_flag__) = pk.unpack_packet(cfg.ESPI_TCP_STRUCT_SEGMENT_FORMAT, data, 24)
 
                         so.__write_tcp_segment_normal_output__(raw_data)
@@ -179,7 +185,7 @@ def espionage_main():
                         else: pass
                         if args.filename:
                             PCAP(pcap_file_name).write_to_pcap_file("\n\tTCP Segment {}".format(cfg.ESPI_ASCII_DOWN_ARROW))
-                            PCAP(pcap_file_name).write_to_pcap_file("\n\t\tSource Port # {}, Destination Port # {}, [Sequence] {}".format(segment_source_port, 
+                            PCAP(pcap_file_name).write_to_pcap_file("\n\t\tSource Port # {}, Destination Port # {}, [Sequence] {}".format(segment_source_port,
                             segment_destination_port, segment_sequence))
                         else: pass
                     elif packet_protocol == 17:
@@ -188,7 +194,7 @@ def espionage_main():
                         if args.filename:
                             PCAP(pcap_file_name).write_to_pcap_file("\n\tUDP Segment (len={}) {}".format(segment_length, cfg.ESPI_ASCII_DOWN_ARROW))
                             PCAP(pcap_file_name).write_to_pcap_file("\n\t\tSource Port: {}, Target Port: {}".format(segment_source_port, segment_destination_port))
-                        else: pass 
+                        else: pass
 
         except KeyboardInterrupt:
             if args.filename:
@@ -201,7 +207,7 @@ def espionage_main():
             while True:
                 raw_data, addr = __socket__.recvfrom(65536)
                 dest_mac, src_mac, eth_proto, data = nf.unpack_ether_frame(raw_data)
-                
+
                 print(BOLD + G + "[espionage]>" + W + BOLD + 'Ethernet Frame: ')
                 esp.print_espionage_notab('Destination: {}, Source: {}, Protocol: {}\n'.format(dest_mac, src_mac, eth_proto))
 
@@ -224,7 +230,7 @@ def espionage_main():
                         else: pass
 
                     elif packet_protocol == 6:
-                        (segment_source_port, segment_destination_port, segment_sequence, segment_acknowledgment, __urg_flag__, __ack_flag__, 
+                        (segment_source_port, segment_destination_port, segment_sequence, segment_acknowledgment, __urg_flag__, __ack_flag__,
                         __psh_flag__, __rst_flag__, __syn_flag__, __fin_flag__) = pk.unpack_packet(cfg.ESPI_TCP_STRUCT_SEGMENT_FORMAT, data, 24)
                         so.__write_tcp_segment_verbose_output__(raw_data)
 
@@ -238,11 +244,11 @@ def espionage_main():
 
                         if args.filename:
                             PCAP(pcap_file_name).write_to_pcap_file("\n\tTCP Segment {}".format(cfg.ESPI_ASCII_DOWN_ARROW))
-                            PCAP(pcap_file_name).write_to_pcap_file("\n\t\tSource Port # {}, Destination Port # {}, [Sequence] {}".format(segment_source_port, 
+                            PCAP(pcap_file_name).write_to_pcap_file("\n\t\tSource Port # {}, Destination Port # {}, [Sequence] {}".format(segment_source_port,
                             segment_destination_port, segment_sequence))
                             # Write TCP Segment flags to file
                             PCAP(pcap_file_name).write_to_pcap_file("\n\t\tTCP Segment Flags")
-                            PCAP(pcap_file_name).write_to_pcap_file("\n\t\tFLAG_URG: {}, FLAG_ACK: {}, FLAG_PSH: {}, FLAG_RST: {}".format(__urg_flag__, 
+                            PCAP(pcap_file_name).write_to_pcap_file("\n\t\tFLAG_URG: {}, FLAG_ACK: {}, FLAG_PSH: {}, FLAG_RST: {}".format(__urg_flag__,
                             __ack_flag__, __psh_flag__, __rst_flag__))
 
                         else: pass
@@ -253,13 +259,20 @@ def espionage_main():
                         if args.filename:
                             PCAP(pcap_file_name).write_to_pcap_file("\n\tUDP Segment (len={}) {}".format(segment_length, cfg.ESPI_ASCII_DOWN_ARROW))
                             PCAP(pcap_file_name).write_to_pcap_file("\n\t\tSource Port: {}, Target Port: {}".format(segment_source_port, segment_destination_port))
-                        else: pass 
+                        else: pass
 
 
         except KeyboardInterrupt:
             if args.filename:
                 print(BOLD + R + "\nExiting Espionage Interception.\n" + BOLD + G + "Packet capture saved to: {}".format(os.path.realpath(pcap_file_name)) + END)
             else: print(BOLD + R + "\nExiting Espionage Interception.\n" + BOLD + C + "Packet capture not written to file.\n" + END)
+
+    elif args.urlonly:
+        cfg = Config()
+        esp = Espionage()
+
+        esp.print_espionage_message("Visited URLs will be displayed below.\n")
+        sniff_url_from_http_packet(args.iface)
 
     elif args.onlyhttp:
         it = InterfaceHandle()
@@ -277,11 +290,11 @@ def espionage_main():
                 cprint("Interface: {} is not-active.".format(args.iface), 'red', attrs=['bold'])
                 cfg.ESPI_NET_INTERFACE_ACTIVE = False
 
-            if cfg.ESPI_NET_INTERFACE_ACTIVE: 
+            if cfg.ESPI_NET_INTERFACE_ACTIVE:
                 ESPHTTPHandle(sysiface, cfg.ESPI_HTTP_DEFAULT_PORT).sniff_basic_http()
         except KeyboardInterrupt:
             print(BOLD + R + "\n[!] Exiting Espionage HTTPS Interception.\n" + END)
-        
+
     elif args.onlyhttpsecure:
         it = InterfaceHandle()
         cfg = Config()
@@ -298,7 +311,7 @@ def espionage_main():
                 cprint("Interface: {} is not-active.".format(args.iface), 'red', attrs=['bold'])
                 cfg.ESPI_NET_INTERFACE_ACTIVE = False
 
-            if cfg.ESPI_NET_INTERFACE_ACTIVE: 
+            if cfg.ESPI_NET_INTERFACE_ACTIVE:
                 ESPHTTPSecureHandle(sysiface, cfg.ESPI_TCP_HTTPS_DEFAULT_PORT).sniff_basic_https()
 
         except KeyboardInterrupt:
@@ -318,4 +331,4 @@ def espionage_main():
             ARPHandle(default_gateway, args.target).restore_network()
 
 if __name__ == "__main__":
-    espionage_main()                
+    espionage_main()
