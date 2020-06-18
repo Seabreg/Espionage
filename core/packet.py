@@ -70,7 +70,7 @@ class Packet(object):
         except:
             print(espionage_textwrapper('\t\t\t', packet_data))
 
-def sniff_url_from_http_packet(interface, raw=False):
+def sniff_url_from_http_packet(interface):
     if Interface(interface).is_interface_up():
         sniff(filter="port 80", prn=process_http_packet, iface=interface, store=False)
     else: sniff(filter="port 80", prn=process_http_packet, store=False)
