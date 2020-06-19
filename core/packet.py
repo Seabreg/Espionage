@@ -8,15 +8,17 @@ You should have received a copy of the MIT license with
 this file. If not, visit : https://opensource.org/licenses/MIT
 '''
 
-
 import struct
 import socket
 import textwrap
 
 import httpcap
 from scapy.all import *
+
 from scapy.layers.http import HTTPRequest
 from core.config import *
+
+from urllib.parse import unquote
 
 class HTTP(object):
     def __init__(self, raw_data):
@@ -66,7 +68,6 @@ class Packet(object):
             byteorder_information = str(raw_http_byteorder.data).split('\n')
             for order in byteorder_information:
                 esp.print_espionage_noprefix('\t\t\t' + str(order))
-
         except:
             print(espionage_textwrapper('\t\t\t', packet_data))
 
@@ -77,6 +78,8 @@ def sniff_url_from_http_packet(interface):
 
 def process_http_packet(httppacket):
     esp = Espionage()
+    cfg = Config()
+    keywords = ['pass', 'password', 'usr', 'username', 'user', 'pwd']
     try:
         if httppacket.haslayer(HTTPRequest):
             url = httppacket[HTTPRequest].Host.decode()
@@ -88,5 +91,8 @@ def process_http_packet(httppacket):
             # Fetch the HTTP request method (GET or POST)
             http_method = httppacket[HTTPRequest].Method.decode()
             esp.print_espionage_noprefix(f"[+] {packet_ip_address} <requested> {packet_url} with {http_method}", color=True)
+            if httppacket.haslayer(Raw) and http_method == "POST":
+                pretty_raw_data = str(httppacket[Raw]).strip("{}b")
+                esp.print_espionage_notab(f"{cfg.ESPI_ASCII_DOWN_ARROW} > Raw Data (possible credentials): " + pretty_raw_data.replace('&', ' | '))
     except IndexError:
         pass

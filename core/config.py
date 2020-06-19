@@ -62,6 +62,7 @@ class Config:
     # Port Handlers
     ESPI_HTTP_DEFAULT_PORT = 80
     ESPI_TCP_HTTPS_DEFAULT_PORT = 443
+    ESPI_HTTP_SHOW_RAW_PACKET = False
 
     # OS Handlers
     ESPI_OSYSTEM_UNIX_LINUX = False
