@@ -15,7 +15,7 @@ Espionage - The Packet Intercepting Tool For Linux
 '''
 
 '''
-                                NOTICE
+                                 NOTICE
 The developer of this program, Josh Schiavone, written the following code
 for educational and ethical purposes only. The data sniffed/intercepted is
 not to be used for malicous intent. Josh Schiavone is not responsible or liable
@@ -45,8 +45,6 @@ from core.optformat import *
 
 from arp.cachepoison import *
 from arp.iproute import *
-
-
 
 global pcap_file_name # "Global variables are bad!" - NSA's programming tips
 
@@ -122,15 +120,15 @@ def espionage_main():
 
     spoofer_section = parser.add_argument_group('(ARP Spoofing) required arguments in-order to use the ARP Spoofing utility')
     spoofer_section.add_argument("-t",
-                        "--target",
-                        required=False)
+                                "--target",
+                                required=False)
 
     args = parser.parse_args()
 
     pcap_file_name = str(args.filename)
 
     try:
-        __socket__ = socket.socket( socket.AF_PACKET, socket.SOCK_RAW, socket.ntohs(0x0003))
+        __socket__ = socket.socket(socket.AF_PACKET, socket.SOCK_RAW, socket.ntohs(0x0003))
         if Interface(args.iface).is_interface_up():
             __socket__.setsockopt(socket.SOL_SOCKET, 25, bytearray(str.encode(args.iface)))
         else: pass
@@ -271,7 +269,7 @@ def espionage_main():
         cfg = Config()
         esp = Espionage()
 
-        esp.print_espionage_message("Visited URLs will be displayed below.\n")
+        esp.print_espionage_message("Visited URLs will be displayed below.\n", True)
         sniff_url_from_http_packet(args.iface)
 
     elif args.onlyhttp:
