@@ -65,8 +65,7 @@ optional arguments:
 (ARP Spoofing) required arguments in-order to use the ARP Spoofing utility:
   -t TARGET, --target TARGET
 ```
-[![asciicast](https://asciinema.org/a/iwuTnHzhuqHPnkkThwiYF3vkm.svg)](https://asciinema.org/a/iwuTnHzhuqHPnkkThwiYF3vkm)
-
+[![asciicast](https://asciinema.org/a/343152.svg)](https://asciinema.org/a/343152)
 ## Discord Server
 https://discord.gg/jtZeWek
 
