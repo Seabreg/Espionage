@@ -23,6 +23,7 @@ GR = '\033[37m'  # gray
 BOLD = '\033[1m'
 END = '\033[0m'
 
+
 def LoadEspionageBanner():
   '''
   Outputs the espionage ascii art on startup.
@@ -31,18 +32,27 @@ def LoadEspionageBanner():
   '''
   print(W + BOLD + "\n    _______________    " + BOLD + R + "* *    ")
   print(G + BOLD +"==c(___(o(______(_()     * *   ")
-  print(G + BOLD + "        \=\              * *     ")   
-  print(G + BOLD + "         )=\            * *      ") 
-  print(G + BOLD + "        //|\\          " + BOLD + R + "* *     ")
-  print(G + BOLD + "       //|| \\                ")
-  print(G + BOLD + "      // ||  \\               ")
-  print(G + BOLD + "     //  ||   \\              ")
-  print(W + BOLD + "    //         \\ Sniff All The Things.          " + END)
+  print(G + BOLD + "        \=\              * *     ")
+  print(G + BOLD + "         )=\            * *      ")
+  print(G + BOLD + "         //|\\          " + BOLD + R + "* *     ")
+  print(G + BOLD + "        //|| \\                ")
+  print(G + BOLD + "       // ||  \\               ")
+  print(G + BOLD + "      //  ||   \\              ")
+  print(W + BOLD + "     //         \\ {}          ".format(random.choice(entry_phrases)) + END)
   print(B + BOLD + "_____________________________________" + END)
-  print(G+ BOLD + "             [Espionage]                  " + END)        
+  print(W+ BOLD + "             ["+G+"Espionage"+W+"]                  " + END)
   print(W + "-==[ " + BOLD + "A Network Traffic Interceptor" + END)
-  print(W + "-==[ " + BOLD + "Developed By: Josh Schiavone    " + END)                                                                                                                                                             
-  print(B + BOLD + "_____________________________________\n" + END)       
+  print(W + "-==[ " + BOLD + "Developed By: Josh Schiavone    " + END)
+  print(B + BOLD + "_____________________________________\n" + END)
+
+entry_phrases = [
+    'Sniff All The Things.',
+    'God Bless Telescopes.',
+    'Wiretap The World.',
+    'She Loves Espionage.',
+    'Be The Man-in-the-middle.',
+]
+
 
 def EspionageBreaker():
   '''
@@ -53,4 +63,4 @@ def EspionageBreaker():
   breaker = colored('''
   ====================================================================================
   ''', 'grey', attrs=['bold'])
-  print(breaker)                  
+  print(breaker)
